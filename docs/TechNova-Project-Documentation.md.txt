@@ -1,0 +1,480 @@
+# Phase 1 — Domain Controller Deployment
+
+## Objective
+
+Deploy the first Domain Controller (DC01) and establish the **TECHNOVA.LOCAL** Active Directory domain for centralized authentication and management.
+
+## Implementation
+
+- Installed Windows Server 2022 in Oracle VirtualBox
+- Renamed the server to **DC01**
+- Configured a static IP address
+- Installed **Active Directory Domain Services (AD DS)**
+- Promoted the server to the first Domain Controller
+- Created the **TECHNOVA.LOCAL** forest
+- Configured DNS automatically during promotion
+
+## Architecture
+
+CLIENT01 → Internal Virtual Network → DC01 → TECHNOVA.LOCAL
+
+## Verification Commands
+
+```powershell
+ipconfig /all
+hostname
+nslookup technova.local
+whoami
+```
+
+These commands verified network configuration, hostname, DNS resolution, and authentication.
+
+## Troubleshooting
+
+| Issue | Resolution |
+|--------|------------|
+| Domain not reachable | Verified VirtualBox network configuration |
+| DNS resolution failed | Configured DC01 as the DNS server |
+| Client unable to find domain | Confirmed static IP and DNS settings |
+
+## Evidence
+
+Place the following screenshots inside `screenshots/phase1/`:
+
+1. Windows Server 2022 desktop
+2. AD DS installed in Server Manager
+3. Domain promotion successful
+4. `ipconfig /all`
+5. `nslookup technova.local`
+
+---
+
+# Phase 2 — Organizational Units & Department Structure
+
+## Objective
+
+Design a scalable Active Directory structure by organizing users into departmental Organizational Units (OUs) and implementing department-based Security Groups.
+
+## What I Implemented
+
+Created the following Organizational Units:
+
+- IT
+- HR
+- Finance
+- Sales
+- Marketing
+- Operations
+
+Created Security Groups:
+
+- IT_Users
+- HR_Users
+- Finance_Users
+- Sales_Users
+- Marketing_Users
+- Operations_Users
+
+Each department receives its own OU and Security Group to simplify administration and permission management.
+
+## Active Directory Structure
+
+TECHNOVA.LOCAL
+
+- IT
+- HR
+- Finance
+- Sales
+- Marketing
+- Operations
+
+## PowerShell Verification
+
+```powershell
+Get-ADOrganizationalUnit -Filter *
+Get-ADGroup -Filter *
+Get-ADGroupMember "IT_Users"
+```
+
+## Troubleshooting
+
+| Issue | Resolution |
+|--------|------------|
+| Incorrect OU path in PowerShell | Verified Distinguished Name using `Get-ADOrganizationalUnit` |
+| Users created in wrong location | Updated the `-Path` parameter with the correct OU |
+| Group membership not verified | Used `Get-ADGroupMember` to confirm users |
+
+## Screenshots
+
+![Organizational Units](screenshots/phase2/01-organizational-units.png)
+
+![Security Groups](screenshots/phase2/02-security-groups.png)
+
+![Group Members](screenshots/phase2/03-group-members.png)
+
+---
+
+# Phase 3 — Domain Join & Active Directory User Management
+
+## Objective
+
+Join CLIENT01 to the TECHNOVA.LOCAL domain and validate centralized authentication using Active Directory user accounts.
+
+## What I Implemented
+
+- Configured CLIENT01 to use DC01 as its DNS server
+- Joined Windows 10 client to **TECHNOVA.LOCAL**
+- Restarted the client after domain join
+- Logged in using domain credentials
+- Verified communication between CLIENT01 and DC01
+
+## Authentication Workflow
+
+CLIENT01 → DNS → DC01 → Active Directory → User Login
+
+## Verification Commands
+
+```powershell
+ipconfig /all
+ping DC01
+nslookup technova.local
+whoami
+```
+
+## Troubleshooting
+
+| Issue | Resolution |
+|--------|------------|
+| Domain join failed | Verified DNS was pointing to DC01 |
+| Client couldn't locate domain | Tested using `nslookup technova.local` |
+| Unable to authenticate | Confirmed domain credentials and restarted CLIENT01 |
+| Network communication issue | Verified connectivity using `ping DC01` |
+
+## Screenshots
+
+![Client Joined Domain](screenshots/phase3/01-domain-join.png)
+
+![Domain Login](screenshots/phase3/02-domain-login.png)
+
+![Whoami Verification](screenshots/phase3/03-whoami.png)
+
+---
+
+# Phase 4 — Group Policy Management (GPO)
+
+## Objective
+
+Implement and validate Group Policy Objects (GPOs) to centrally manage Windows client settings across the TECHNOVA domain.
+
+## What I Implemented
+
+- Created a new Group Policy Object (GPO)
+- Linked the GPO to the appropriate Organizational Unit (OU)
+- Applied User and Computer Configuration settings
+- Updated policies on CLIENT01
+- Verified successful GPO application
+
+## Group Policy Workflow
+
+DC01 → Group Policy → Organizational Unit → CLIENT01
+
+## Verification Commands
+
+```powershell
+gpupdate /force
+gpresult /r
+gpresult /h C:\Temp\GPReport.html
+```
+
+## Troubleshooting
+
+| Issue | Resolution |
+|--------|------------|
+| GPO changes not visible | Forced refresh using `gpupdate /force` |
+| Policy not applied | Verified with `gpresult /r` |
+| Incorrect OU link | Confirmed GPO was linked to the correct OU |
+| User settings missing | Logged in with the correct domain user |
+
+## Screenshots
+
+![Group Policy Management](screenshots/phase4/01-gpo-management.png)
+
+![GPO Linked](screenshots/phase4/02-gpo-linked.png)
+
+![GPResult](screenshots/phase4/03-gpresult.png)
+
+---
+# Phase 5 — File Shares & NTFS Permissions
+
+## Objective
+Create departmental shared folders and secure them using Share Permissions and NTFS Permissions.
+
+## Department Folders
+
+The following folders were created under `C:\CompanyShares`:
+
+- Finance
+- HR
+- IT
+- Marketing
+- Operations
+- Sales
+
+![Company Share Folders](../screenshots/phase5/01-company-share-folders.png)
+
+## Configure Share Permissions
+
+Each departmental folder was shared using **Advanced Sharing**.
+
+Share name example: `HR`
+
+Permission configured:
+
+- Everyone → Read
+
+![Share Permissions](../screenshots/phase5/02-share-permissions.png)
+
+## Disable Inheritance
+
+Inherited permissions were disabled and converted into explicit permissions.
+
+![Disable Inheritance](../screenshots/phase5/03-disable-inheritance.png)
+
+## Configure NTFS Permissions
+
+Default inherited permissions were removed and departmental security groups were assigned.
+
+Example:
+
+- HR_Users → Modify
+- Administrators → Full Control
+- SYSTEM → Full Control
+
+![NTFS Permissions](../screenshots/phase5/04-ntfs-permissions.png)
+
+## Department Group Access
+
+The HR security group was granted **Modify** permission for the HR department folder.
+
+![HR Modify Permission](../screenshots/phase5/05-hr-group-modify.png)
+
+## Final Result
+
+Final permissions show only the required security principals with least-privilege access.
+
+![Final Permissions](../screenshots/phase5/06-final-permissions.png)
+
+### Outcome
+
+- Created 6 departmental shared folders
+- Configured network sharing
+- Implemented NTFS least-privilege permissions
+- Restricted access using Active Directory security groups
+
+# Phase 6 — Folder Redirection
+
+## Objective
+
+Implement Folder Redirection to centrally store user data on the server instead of the local client, ensuring easier backup and centralized management.
+
+## What I Implemented
+
+- Created a centralized **UserData** shared folder on DC01
+- Configured Folder Redirection through Group Policy
+- Redirected user folders from CLIENT01 to DC01
+- Verified redirected folders after domain login
+- Tested policy refresh and client synchronization
+
+## Folder Redirection Workflow
+
+CLIENT01 → Group Policy → DC01 UserData Share → Centralized Storage
+
+## Verification Commands
+
+```powershell
+gpupdate /force
+gpresult /r
+Test-Path "\\DC01\UserData"
+```
+
+## Troubleshooting
+
+| Issue | Resolution |
+|--------|------------|
+| Folder remained local | Forced policy update using `gpupdate /force` |
+| Redirection policy not applied | Verified GPO with `gpresult /r` |
+| Client couldn't access UserData | Tested UNC path using `Test-Path` |
+| DNS prevented policy processing | Confirmed DC01 was configured as the DNS server |
+
+## Screenshots
+
+![Folder Redirection Policy](screenshots/phase6/01-folder-redirection-policy.png)
+
+![UserData Share](screenshots/phase6/02-userdata-share.png)
+
+![Redirected Folder Verification](screenshots/phase6/03-folder-verification.png)
+
+---
+
+# Phase 7 — PowerShell Automated User Provisioning
+
+## Objective
+
+Automate the creation of Active Directory users using PowerShell and a CSV file, eliminating manual account creation and ensuring consistent enterprise onboarding.
+
+## What I Implemented
+
+- Created a structured employee CSV database
+- Imported employee records using `Import-Csv`
+- Automated AD user creation with `New-ADUser`
+- Assigned users to departmental OUs
+- Generated User Principal Names (UPN)
+- Applied department attributes
+- Detected duplicate usernames
+- Implemented error handling using `try` / `catch`
+
+## Automation Workflow
+
+Employees.csv
+
+↓
+
+Import-Csv
+
+↓
+
+Check Existing User
+
+↓
+
+Verify OU
+
+↓
+
+Create AD User
+
+↓
+
+Log Result
+
+## PowerShell Commands
+
+```powershell
+Import-Csv
+Get-ADUser
+Get-ADOrganizationalUnit
+New-ADUser
+ConvertTo-SecureString
+```
+
+## Troubleshooting
+
+| Issue | Resolution |
+|--------|------------|
+| CSV not loading correctly | Verified column headers and file path |
+| Duplicate usernames | Checked with `Get-ADUser` before creation |
+| Users created in wrong OU | Corrected the `-Path` Distinguished Name |
+| Password format error | Converted plaintext using `ConvertTo-SecureString` |
+| Script stopped on error | Implemented `try` / `catch` for continuous processing |
+
+## Screenshots
+
+![Employee CSV](screenshots/phase7/01-employees-csv.png)
+
+![PowerShell Script](screenshots/phase7/02-powershell-script.png)
+
+![Successful User Creation](screenshots/phase7/03-user-created.png)
+
+---
+
+# Phase 8 — Enterprise User Onboarding (513 Employees)
+
+## Objective
+
+Perform enterprise-scale onboarding by provisioning **513 employee accounts** automatically through a single PowerShell script, while assigning Organizational Units, Security Groups, Home Folders, and generating audit logs.
+
+## What I Implemented
+
+- Imported **513 employee records** from CSV
+- Created Active Directory user accounts automatically
+- Assigned users to department OUs
+- Added users to department Security Groups
+- Created individual Home Folders
+- Generated onboarding logs
+- Displayed final provisioning summary
+- Continued processing even if individual records failed
+
+## Enterprise Onboarding Workflow
+
+Employees.csv
+
+↓
+
+Import-Csv
+
+↓
+
+513 Employee Records
+
+↓
+
+Create AD Users
+
+↓
+
+Assign Department OU
+
+↓
+
+Add Security Group
+
+↓
+
+Create Home Folder
+
+↓
+
+Generate Log & Summary
+
+## PowerShell Components
+
+```powershell
+foreach
+Import-Csv
+New-ADUser
+Add-ADGroupMember
+Test-Path
+New-Item
+Out-File
+try/catch
+```
+
+## Results
+
+| Metric | Result |
+|---------|--------|
+| Employee Records | **513** |
+| Bulk Provisioning | Successful |
+| OU Assignment | Automated |
+| Security Groups | Automated |
+| Home Folder Creation | Automated |
+| Logging | Implemented |
+
+## Troubleshooting
+
+| Issue | Resolution |
+|--------|------------|
+| Incorrect OU Distinguished Name | Verified using `Get-ADOrganizationalUnit` |
+| Duplicate users skipped | Implemented pre-check with `Get-ADUser` |
+| Missing department group | Validated with `Get-ADGroup` |
+| Existing home folders | Checked using `Test-Path` before creation |
+| Script interruption | Used `try/catch` to continue remaining users |
+
+## Screenshots
+
+![Bulk User Creation](screenshots/phase8/01-bulk-user-creation.png)
+
+![513 Users Created](screenshots/phase8/02-active-directory-users.png)
+
+![Onboarding Summary](screenshots/phase8/03-summary-report.png)
+

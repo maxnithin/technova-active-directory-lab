@@ -1,0 +1,31 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="m8d0nl3cAu7CTt27mhh_">
+    <mxGraphModel dx="691" dy="880" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="NiqvSQ3QBqRPcKl2mWzK-3" edge="1" parent="1" source="NiqvSQ3QBqRPcKl2mWzK-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;fillColor=#B3B3B3;strokeColor=#999999;" target="NiqvSQ3QBqRPcKl2mWzK-2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NiqvSQ3QBqRPcKl2mWzK-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#ADD8E6;fillColor=#ADD8E6;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Client01&lt;/font&gt;&lt;/b&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Windows 10 VM&lt;/div&gt;&lt;div&gt;Domain Client&amp;nbsp;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="130" x="40" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="NiqvSQ3QBqRPcKl2mWzK-5" edge="1" parent="1" source="NiqvSQ3QBqRPcKl2mWzK-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#999999;fillColor=light-dark(transparent,#CCCCCC);" target="NiqvSQ3QBqRPcKl2mWzK-4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NiqvSQ3QBqRPcKl2mWzK-2" parent="1" style="whiteSpace=wrap;html=1;rounded=1;fillColor=#00FFFF;strokeColor=#00FFFF;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Internal Network&lt;/font&gt;&lt;/b&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;VirtualBox&lt;/div&gt;&lt;div&gt;Isolated LAN&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="130" x="260" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="NiqvSQ3QBqRPcKl2mWzK-7" edge="1" parent="1" source="NiqvSQ3QBqRPcKl2mWzK-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#999999;" target="NiqvSQ3QBqRPcKl2mWzK-6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NiqvSQ3QBqRPcKl2mWzK-4" parent="1" style="whiteSpace=wrap;html=1;rounded=1;fillColor=#90EE90;strokeColor=#90EE90;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;DC01&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Windows Server&lt;/div&gt;&lt;div&gt;Domain Controller&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="130" x="480" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="NiqvSQ3QBqRPcKl2mWzK-6" parent="1" style="whiteSpace=wrap;html=1;rounded=1;fillColor=light-dark(#FF73FF,#F700F7);strokeColor=#800080;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;TECHNOVA.LOCAL&lt;/font&gt;&lt;/b&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Active Directory&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="130" x="690" y="440" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
