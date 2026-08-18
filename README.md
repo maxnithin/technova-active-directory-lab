@@ -97,25 +97,14 @@ The onboarding script performs the following tasks automatically:
 
 ## Repository Structure
 
-```text
-technova-active-directory-lab
-│
-├── README.md
-├── diagrams
-├── screenshots
-│   ├── phase1
-│   ├── phase2
-│   ├── phase3
-│   ├── phase4
-│   ├── phase5
-│   ├── phase6
-│   ├── phase7
-│   └── phase8
-├── scripts
-│   ├── Create-Users.ps1
-│   └── Employees.csv
-└── docs
-```
+| Folder | Purpose |
+|---------|---------|
+| `README.md` | Complete project documentation |
+| `diagrams/` | Draw.io network & workflow diagrams |
+| `screenshots/phase1-8/` | Evidence for each implementation phase |
+| `scripts/Create-Users.ps1` | PowerShell automation script |
+| `scripts/Employees.csv` | Bulk onboarding employee dataset |
+| `docs/` | Supporting project documents |
 
 ---
 
