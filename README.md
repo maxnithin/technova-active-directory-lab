@@ -529,7 +529,7 @@ Example:
 - Administrators → Full Control
 - SYSTEM → Full Control
 
-![NTFS Permissions](/screenshots/phase5/04-ntfs-permissions.png)
+![NTFS Permissions](/screenshots/phase5/04-ntfs-permission.png)
 
 ## Department Group Access
 
