@@ -529,7 +529,7 @@ Example:
 - Administrators → Full Control
 - SYSTEM → Full Control
 
-![NTFS Permissions](/screenshots/phase5/04-ntfs-permissions.png)
+![NTFS Permissions](/screenshots/phase5/04-ntfs-permission.png)
 
 ## Department Group Access
 
@@ -607,7 +607,7 @@ Deploy Folder Redirection through Group Policy and verify that users can access 
 
 The **Folder Redirection** Group Policy Object was linked to the **Workstations** Organizational Unit so that all domain-joined client computers receive the policy.
 
-![Folder Redirection Linked](/screenshots/phase6/01-folder-redirection.png)
+![Folder Redirection Linked](/screenshots/phase6/011-folder.png)
 
 ## Verify Network Shares
 
