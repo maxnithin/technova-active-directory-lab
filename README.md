@@ -860,8 +860,3 @@ The TechNova Enterprise Infrastructure Lab successfully demonstrates the complet
 
 ---
 
-## Author
-
-**Nithin**
-
-
