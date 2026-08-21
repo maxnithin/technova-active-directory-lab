@@ -251,7 +251,7 @@ Get-ADGroupMember "IT_Users"
 
 ### Step 4: CLIENT01 successfully joined the technova.local domain
 
-![Domain Join Success](screenshots/phase3/03-04-domain-join-success.png)
+![Domain Join Success](screenshots/phase2/03-04-domain-join-success.png)
 
 ---
 
