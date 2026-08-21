@@ -240,12 +240,15 @@ Get-ADGroupMember "IT_Users"
 ## Screenshots
 
 Organizational Units
+
 ![Organizational Units](screenshots/phase2/01-organizational-units.png)
 
 Security Groups
+
 ![Security Groups](screenshots/phase2/02-security-groups.png)
 
 Group Members
+
 ![Group Members](screenshots/phase2/03-group-members.png)
 
 ###  CLIENT01 successfully joined the technova.local domain
