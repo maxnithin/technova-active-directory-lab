@@ -123,10 +123,6 @@ The onboarding script performs the following tasks automatically:
 
 ---
 
-## Author
-
-**Nithin Reddy**
-
 Infrastructure Engineering Lab
 
 ---
@@ -251,7 +247,7 @@ Get-ADGroupMember "IT_Users"
 
 ### Step 4: CLIENT01 successfully joined the technova.local domain
 
-![Domain Join Success](screenshots/phase3/03-04-domain-join-success.png)
+![Domain Join Success](screenshots/phase2/03-04-domain-join-success.png)
 
 ---
 
@@ -295,11 +291,21 @@ whoami
 
 ## Screenshots
 
-![Client Joined Domain](screenshots/phase3/01-domain-join.png)
+### 3.1 Domain User Authentication
 
-![Domain Login](screenshots/phase3/02-domain-login.png)
+Verified that CLIENT01 successfully authenticated using an Active Directory domain user account. The `whoami` command confirms the logged-in identity as `desktop-5h6mvl3\technova`.
 
-![Whoami Verification](screenshots/phase3/03-whoami.png)
+![Domain User Verification](screenshots/phase3/01-domain-user-verification.png)
+
+---
+
+### 3.2 Domain Controller Authentication Verification
+
+Executed verification commands from the Domain Controller. `whoami` confirms the Administrator domain account, while `%logonserver%` verifies authentication through **DC01**.
+
+![Domain Administrator Verification](screenshots/phase3/02-domain-administrator-verification.png)
+
+---
 
 ## Part B: User Must Change Password at First Logon
 
@@ -493,7 +499,7 @@ The following folders were created under `C:\CompanyShares`:
 - Operations
 - Sales
 
-![Company Share Folders](../screenshots/phase5/01-company-share-folders.png)
+![Company Share Folders](/screenshots/phase5/01-company-share-folders.png)
 
 ## Configure Share Permissions
 
@@ -505,13 +511,13 @@ Permission configured:
 
 - Everyone → Read
 
-![Share Permissions](../screenshots/phase5/02-share-permissions.png)
+![Share Permissions](/screenshots/phase5/02-share-permissions.png)
 
 ## Disable Inheritance
 
 Inherited permissions were disabled and converted into explicit permissions.
 
-![Disable Inheritance](../screenshots/phase5/03-disable-inheritance.png)
+![Disable Inheritance](/screenshots/phase5/03-disable-inheritance.png)
 
 ## Configure NTFS Permissions
 
@@ -523,19 +529,19 @@ Example:
 - Administrators → Full Control
 - SYSTEM → Full Control
 
-![NTFS Permissions](../screenshots/phase5/04-ntfs-permissions.png)
+![NTFS Permissions](/screenshots/phase5/04-ntfs-permissions.png)
 
 ## Department Group Access
 
 The HR security group was granted **Modify** permission for the HR department folder.
 
-![HR Modify Permission](../screenshots/phase5/05-hr-group-modify.png)
+![HR Modify Permission](/screenshots/phase5/05-hr-group-modify.png)
 
 ## Final Result
 
 Final permissions show only the required security principals with least-privilege access.
 
-![Final Permissions](../screenshots/phase5/06-final-permissions.png)
+![Final Permissions](/screenshots/phase5/06-final-permissions.png)
 
 ### Outcome
 
@@ -554,7 +560,7 @@ Automatically map the company shared drive (S:) to all domain users using Group 
 
 A new Group Policy Object named **Map Company Drive** was created in Group Policy Management.
 
-![Create Drive Mapping GPO](../screenshots/phase6/01-create-drive-gpo.png)
+![Create Drive Mapping GPO](/screenshots/phase6/01-create-drive-gpo.png)
 
 ## Step 2: Create a Mapped Drive
 
@@ -564,7 +570,7 @@ Navigate to:
 
 Create a new **Mapped Drive** preference.
 
-![New Mapped Drive](../screenshots/phase6/02-new-mapped-drive.png)
+![New Mapped Drive](/screenshots/phase6/02-new-mapped-drive.png)
 
 ## Step 3: Configure Drive Properties
 
@@ -577,13 +583,13 @@ The shared folder was configured with the following settings:
 | Network Path | `\\DC01\Companyshares` |
 | Label | TechNova Shared Drive |
 
-![Drive Properties](../screenshots/phase6/03-drive-properties.png)
+![Drive Properties](/screenshots/phase6/03-drive-properties.png)
 
 ## Step 4: Verify GPO Configuration
 
 The Drive Maps policy now contains the S: drive mapping and is ready for deployment.
 
-![Drive Map Created](../screenshots/phase6/04-drive-map-created.png)
+![Drive Map Created](/screenshots/phase6/04-drive-map-created.png)
 
 ### Result
 
@@ -601,7 +607,7 @@ Deploy Folder Redirection through Group Policy and verify that users can access 
 
 The **Folder Redirection** Group Policy Object was linked to the **Workstations** Organizational Unit so that all domain-joined client computers receive the policy.
 
-![Folder Redirection Linked](../screenshots/phase6/01-folder-redirection-linked.png)
+![Folder Redirection Linked](/screenshots/phase6/01-folder-redirection.png)
 
 ## Verify Network Shares
 
@@ -617,13 +623,13 @@ Available shares included:
 - Operations
 - Sales
 
-![Network Shares Visible](../screenshots/phase6/02-network-share-visible.png)
+![Network Shares Visible](/screenshots/phase6/02-network-share-visible.png)
 
 ## Verify Access Restrictions
 
 Attempting to open the **IT** departmental share from an unauthorized user resulted in an **Access Denied** message, confirming that NTFS and security group permissions were enforced correctly.
 
-![Access Denied Verification](../screenshots/phase6/03-access-denied-verification.png)
+![Access Denied Verification](/screenshots/phase6/03-access-denied-verification.png)
 
 ### Outcome
 
